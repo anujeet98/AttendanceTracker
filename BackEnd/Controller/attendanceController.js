@@ -2,6 +2,9 @@ const DateModel = require('../model/date.js');
 const StudentModel = require('../model/student.js');
 const AttendanceModel = require('../model/attendance.js');
 
+const {Sequelize} = require('sequelize');
+const sequelize = require('../util/db.js');
+
 module.exports.getAttendance = async (req,res,next) => {
     try{
         console.log('get request...')
@@ -71,8 +74,37 @@ module.exports.postAttendance = async (req,res,next) => {
     }
 };
 
-module.exports.getReport = (req,res,next) => {
+module.exports.getReport = async(req,res,next) => {
+    try{
+        const days = await DateModel.findAll();
+        const jsonData = {
+            totalDays: days.length,
+            data:[]
+        }
 
+        const result = await AttendanceModel.findAll({
+            include: [{
+                model:StudentModel,
+                attributes:['name']
+            }],
+            where: {status: "Present"},
+            attributes: ['studentId', [sequelize.fn('count', Sequelize.col('studentId')), 'presentCount']],
+            group: ['studentId'],
+        })
+
+        console.log(result);
+        result.forEach(elem => {
+            jsonData.data.push({studentName: elem.student.name, presentCount: elem.dataValues.presentCount})
+            // console.log(elem.student.name, elem.studentId, elem.dataValues.presentCount);
+        });
+
+        res.status(200).json(jsonData);
+    
+    }
+    catch(err){
+        console.error('getReportError: ',err);
+        res.status(500).json({status: "Internal Server Error"});
+    }
 };
 
 
