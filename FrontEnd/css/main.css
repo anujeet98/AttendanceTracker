@@ -1,0 +1,52 @@
+
+body{
+    font-family: sans-serif;
+}
+
+.header{
+    background-color: rgb(230, 229, 229);
+    display: flex;
+    padding: 2%;
+    border-radius: 8px;
+    margin-left: auto;
+}
+
+label{
+    padding-top: 0.4rem;
+    padding-right: 1rem;
+    font-weight: bold;
+}
+
+#searchBtn {
+    padding: 0.7% 1.4%;
+    background-color: rgb(24, 105, 218);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0rem 1rem;
+}
+
+#fetchBtn {
+    padding: 0.7% 1.4%;
+    background-color: rgb(5, 146, 101);
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    width: 13rem;
+}
+
+.attendanceContainer{
+    padding: 3%;
+}
+
+
+
+.submitAttendanceBtn{
+    background-color: rgb(215, 151, 31);
+    color: white;
+    border: none;
+    padding: 0.7% 1.4%;
+    cursor: pointer;
+}

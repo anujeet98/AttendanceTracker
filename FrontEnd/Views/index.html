@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Attendance</title>
+    <link href="../css/main.css" rel="stylesheet"/>
+</head>
+<body>
+    <header class="header">
+        <label for="date">Select a Date:</label>
+        <input type="date" name="date" id="date">
+        <button id="searchBtn">Search</button> 
+        <button id="fetchBtn">Fetch Attendance Report</button> 
+    </header> 
+    <div id="attendanceContainer">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="../js/main.js" rel="javascript"></script>
+</body>
+</html>
