@@ -48,14 +48,52 @@ function renderAttendanceForm(result){
 
 
 function postAttendance(){
+    let jsonData = {
+        Date: date.value,
+        data: []
+    };
+
     const radio = document.getElementsByClassName('stud-radio');
     for(let i=0;i<radio.length;i++){
         if (radio[i].checked) {
-            console.log(radio[i].name, radio[i].value);
+            jsonData.data.push({studentName: radio[i].name, status: radio[i].value});
+            // console.log(radio[i].name, radio[i].value);
         }
-        else{
-            return alert('please mark for all the students');
-        }
+
+        let selectedValue = null;
+        document.getElementsByName(`${radio[i].name}`).forEach(r => {
+            if(r.checked){
+                selectedValue = r.value;
+            }
+        });
+        if(selectedValue===null)
+            return alert('please mark all the attendance');
     }
 
+    // renderAttendanceReport(jsonData);
+
+    //-------------------------------------------------------------------
+    axios.post('http://localhost:8000/attendance/',jsonData)
+        .then(()=>{
+            renderAttendanceReport(jsonData);
+        })
+        .catch(err=>console.error('postAttendanceError: ',err));
+
+}
+
+function renderAttendanceReport(result){
+    attnedanceContainer.innerHTML = '';
+
+    for(let i=0;i<result.data.length;i++){
+        let div = document.createElement('div');
+        div.className="attendanceForm_element";
+    
+        if(result.data[i].status==='Present'){
+            div.innerHTML += `${result.data[i].studentName}   ✔ Present`;
+        }
+        else{
+            div.innerHTML += `${result.data[i].studentName}   ✘ Absent`;
+        }
+        attnedanceContainer.appendChild(div);
+    }
 }
