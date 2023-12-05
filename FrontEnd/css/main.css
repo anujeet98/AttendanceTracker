@@ -37,8 +37,9 @@ label{
     width: 13rem;
 }
 
-.attendanceContainer{
+#attendanceContainer{
     padding: 3%;
+    display: flex;
 }
 
 
@@ -49,4 +50,15 @@ label{
     border: none;
     padding: 0.7% 1.4%;
     cursor: pointer;
+}
+
+
+.dataContainer {
+    width: 33%;
+    font-family: sans-serif;
+    line-break: normal;
+}
+
+.markBtnContainer {
+    padding: 3%;
 }
